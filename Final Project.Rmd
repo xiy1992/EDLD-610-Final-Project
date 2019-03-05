@@ -17,6 +17,7 @@ theme_set(theme_minimal())
 library(knitr)
 library(kableExtra)
 library(ggthemes)
+library(wesanderson)
 ```
 
 OK, time to get this gravy train a-rollin'! 
@@ -213,8 +214,9 @@ ggplot(pol2, aes(x = sbc_cat, y = mean, fill = know2)) +
   geom_bar(stat = "summary", alpha = .7, position = pd) +
   geom_errorbar(aes(ymin = mean + qnorm(0.025) * se,
                     ymax = mean + qnorm(0.975) * se),
-                position = pd, width = 0.5) +
+                position = pd, width = 0.3) +
   facet_wrap(~polit) +
+  scale_fill_manual(values=wes_palette(name="Darjeeling2", n=2))+
   scale_y_continuous(labels = scales::dollar, limits = c(0, 10)) +
   labs(x = "SBC", y = "Donation", fill = "Awareness", title = "SBC and awareness impacted donations to BLM for conservatives and liberals") +
   theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
@@ -227,3 +229,10 @@ ggplot(pol2, aes(x = sbc_cat, y = mean, fill = know2)) +
 As can be seen, the influence of SBC and awareness on conservatives appears staggering! Their donations to Black Lives Matter are < $0.50 at low SBC, but skyrocket at high SBC. This is especially true for conservatives who were aware of Nike's Kaepernick campaign, although the 95% interval around the mean is large. 
 
 Interestingly, there was somewhat of a crossover interaction for liberals, such that being aware (vs. unaware) of Nike's activism led to increased donations at high SBC, but decreased donations at low SBC. 
+
+##TN: 
+
+This is a nice graph and really cool results! 
+I also think you did an awesome job preparing the data and taking a look at the distributions for the different groups with density plots - great visualization! 
+I think that the size of the error bars is a bit distracting, maybe you can play a bit with their width? It's great to see them clearly but it might be useful to have them be a bit less wide so they are not so disctracting, I changed the width to .3/ 
+Also, there is a ton of different color palettes out there that can make a classical bar graph stand out! I added the wesanderson library and one of the palettes from the package, just as an example :) https://github.com/karthik/wesanderson 
