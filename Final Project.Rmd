@@ -75,6 +75,15 @@ ggplot(d, aes(x = sbcavg, y = donate_3)) +
         legend.background = element_rect(size = .5))
 ```
 
+## TN: 
+
+I think that the regression line with uncertainty visualizarion and showing the raw data, is a really efficient way of showing your results. >> I was looking at he results in your model, and depending on who you intended audience is, it might be cool to already include your p-value in the little subtitle of the graph? it is very significant and that is cool! 
+I played a little bit with the color of the data points, because I felt that using a lower alpha was enough , they were a bit distracting. 
+
+It might be nice to show even more contrast between the line/model part of the graph and the raw data! Probably by making the regression line a bit thicker? maybe using a different color palette for the line and SE? 
+
+I also quickly checked how it looked without the raw data (I just ocmmented the geom_jitter line) and looked really good! If th edata points ar enot adding any relevan tinfo to what you want to communicate I might consider not including them at all! 
+
 # SBC by Activism Awareness Interaction on Donations
 
 Now for the real deal. My guiding theoretical framework suggests that consumers will align their activism with that of a connected *when* that brand demonstrates activism behavior. As such, it is integral to see how consumers decided to donate when they did versus did not know of Nike's 30th anniversary campaign with Colin Kaepernick. Running this study on launch day of the campaign allowed for me to draw comparisons between these two groups before the campaign was covered on the evening news. 
