@@ -82,7 +82,7 @@ I played a little bit with the color of the data points, because I felt that usi
 
 It might be nice to show even more contrast between the line/model part of the graph and the raw data! Probably by making the regression line a bit thicker? maybe using a different color palette for the line and SE? 
 
-I also quickly checked how it looked without the raw data (I just ocmmented the geom_jitter line) and looked really good! If th edata points ar enot adding any relevan tinfo to what you want to communicate I might consider not including them at all! 
+I also quickly checked how it looked without the raw data (I just commented the geom_jitter line) and looked really good! If th edata points ar enot adding any relevant info to what you want to communicate I might consider not including them at all! 
 
 # SBC by Activism Awareness Interaction on Donations
 
@@ -134,7 +134,14 @@ ggplot(d, aes(x = sbcavg, y = donate_3, color = know2)) +
         legend.title = element_text(size = 16, face = "bold"),
         legend.background = element_rect(size = .5))
 ```
+## TN: 
+Wow, this is a neat graph! However, again I think it is important for you to think of who is your intended audience 
+By just focusing on what the graph transmit, it is not precisely clear what you are trying to show with the areas of significance >> is it just proofing that the slope of the blue line is singificantly lower that the pink? >> depending on who is going to look at this the region of significance boxes might or might not be relevant. 
+In these graphs i ngeneral it might be nice to have osme clarification on what SBC is (I only know from reading your descriptions in the document)
 
+
+
+----
 SBC positively affects donation intentions for those with and without knowledge of Nike's activism. However, knowledge moderates the strength of SBC's effect on donation intentions.
 
 Donation intentions for Black Lives Matter were *highest* when participants had a strong connection to Nike and were aware of its activism. The caveat is that donation intentions for Black Lives Matter were *lowest* when participants had a weak connection to Nike and knew of its activism. This provides some evidence that consumers use their association with or disassociation from a focal brand to decide how to engage with a particular activist cause.
