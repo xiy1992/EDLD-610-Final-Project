@@ -46,10 +46,13 @@ d <- import("./d.csv", setclass = "tibble") %>%
   clean_names() %>% 
   mutate(sbcavg = (sbc_4 + sbc_5 + sbc_6 + sbc_7 + sbc_8 + sbc_9 + sbc_10)/7, 
          att_cause = (att_cause_1 + att_cause_2 + att_cause_3)/3) %>% 
-  filter(sbcavg != "NA") %>% 
+  drop_na(sbcavg) %>% #changed dropping NA function
   mutate(know2 = as.factor(know2),
          know2 = recode(know2, "1" = "Yes", "0" = "No"))
 ```
+
+##TN: 
+Great data wrangling! I just changed the function you used for getting rid of NAs, for a shorter one :) 
 
 # Main Effect of SBC on Donations
 
