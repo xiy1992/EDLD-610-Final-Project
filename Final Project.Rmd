@@ -17,6 +17,7 @@ theme_set(theme_minimal())
 library(knitr)
 library(kableExtra)
 library(ggthemes)
+library(wesanderson)
 ```
 
 OK, time to get this gravy train a-rollin'! 
@@ -46,10 +47,13 @@ d <- import("./d.csv", setclass = "tibble") %>%
   clean_names() %>% 
   mutate(sbcavg = (sbc_4 + sbc_5 + sbc_6 + sbc_7 + sbc_8 + sbc_9 + sbc_10)/7, 
          att_cause = (att_cause_1 + att_cause_2 + att_cause_3)/3) %>% 
-  filter(sbcavg != "NA") %>% 
+  drop_na(sbcavg) %>% #changed dropping NA function
   mutate(know2 = as.factor(know2),
          know2 = recode(know2, "1" = "Yes", "0" = "No"))
 ```
+
+##TN: 
+Great data wrangling! I just changed the function you used for getting rid of NAs, for a shorter one :) 
 
 # Main Effect of SBC on Donations
 
@@ -63,7 +67,7 @@ summary(model)
 
 ggplot(d, aes(x = sbcavg, y = donate_3)) +
   geom_smooth(method = "lm") +
-  geom_jitter(alpha = .6) +
+  geom_jitter(alpha = .6, color= "gray65") +
   scale_y_continuous(labels = scales::dollar) +
   labs(x = "Self-Brand Connection (SBC)", y = "Donations", title = "SBC to Nike increased donations to Black Lives Matter", subtitle = "A 10-point increase in SBC is associated with a $0.33 boost in donation amount") +
   theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
@@ -71,6 +75,15 @@ ggplot(d, aes(x = sbcavg, y = donate_3)) +
         legend.title = element_text(size = 16, face = "bold"),
         legend.background = element_rect(size = .5))
 ```
+
+## TN: 
+
+I think that the regression line with uncertainty visualizarion and showing the raw data, is a really efficient way of showing your results. >> I was looking at he results in your model, and depending on who you intended audience is, it might be cool to already include your p-value in the little subtitle of the graph? it is very significant and that is cool! 
+I played a little bit with the color of the data points, because I felt that using a lower alpha was enough , they were a bit distracting. 
+
+It might be nice to show even more contrast between the line/model part of the graph and the raw data! Probably by making the regression line a bit thicker? maybe using a different color palette for the line and SE? 
+
+I also quickly checked how it looked without the raw data (I just commented the geom_jitter line) and looked really good! If th edata points ar enot adding any relevant info to what you want to communicate I might consider not including them at all! 
 
 # SBC by Activism Awareness Interaction on Donations
 
@@ -122,7 +135,14 @@ ggplot(d, aes(x = sbcavg, y = donate_3, color = know2)) +
         legend.title = element_text(size = 16, face = "bold"),
         legend.background = element_rect(size = .5))
 ```
+## TN: 
+Wow, this is a neat graph! However, again I think it is important for you to think of who is your intended audience 
+By just focusing on what the graph transmit, it is not precisely clear what you are trying to show with the areas of significance >> is it just proofing that the slope of the blue line is singificantly lower that the pink? >> depending on who is going to look at this the region of significance boxes might or might not be relevant. 
+In these graphs i ngeneral it might be nice to have osme clarification on what SBC is (I only know from reading your descriptions in the document)
 
+
+
+----
 SBC positively affects donation intentions for those with and without knowledge of Nike's activism. However, knowledge moderates the strength of SBC's effect on donation intentions.
 
 Donation intentions for Black Lives Matter were *highest* when participants had a strong connection to Nike and were aware of its activism. The caveat is that donation intentions for Black Lives Matter were *lowest* when participants had a weak connection to Nike and knew of its activism. This provides some evidence that consumers use their association with or disassociation from a focal brand to decide how to engage with a particular activist cause.
@@ -194,8 +214,9 @@ ggplot(pol2, aes(x = sbc_cat, y = mean, fill = know2)) +
   geom_bar(stat = "summary", alpha = .7, position = pd) +
   geom_errorbar(aes(ymin = mean + qnorm(0.025) * se,
                     ymax = mean + qnorm(0.975) * se),
-                position = pd, width = 0.5) +
+                position = pd, width = 0.3) +
   facet_wrap(~polit) +
+  scale_fill_manual(values=wes_palette(name="Darjeeling2", n=2))+
   scale_y_continuous(labels = scales::dollar, limits = c(0, 10)) +
   labs(x = "SBC", y = "Donation", fill = "Awareness", title = "SBC and awareness impacted donations to BLM for conservatives and liberals") +
   theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
@@ -208,3 +229,10 @@ ggplot(pol2, aes(x = sbc_cat, y = mean, fill = know2)) +
 As can be seen, the influence of SBC and awareness on conservatives appears staggering! Their donations to Black Lives Matter are < $0.50 at low SBC, but skyrocket at high SBC. This is especially true for conservatives who were aware of Nike's Kaepernick campaign, although the 95% interval around the mean is large. 
 
 Interestingly, there was somewhat of a crossover interaction for liberals, such that being aware (vs. unaware) of Nike's activism led to increased donations at high SBC, but decreased donations at low SBC. 
+
+##TN: 
+
+This is a nice graph and really cool results! 
+I also think you did an awesome job preparing the data and taking a look at the distributions for the different groups with density plots - great visualization! 
+I think that the size of the error bars is a bit distracting, maybe you can play a bit with their width? It's great to see them clearly but it might be useful to have them be a bit less wide so they are not so disctracting, I changed the width to .3/ 
+Also, there is a ton of different color palettes out there that can make a classical bar graph stand out! I added the wesanderson library and one of the palettes from the package, just as an example :) https://github.com/karthik/wesanderson 
