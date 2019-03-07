@@ -20,6 +20,7 @@ library(ggthemes)
 library(wesanderson)
 ```
 
+Haha, I like your notes! - Xi
 OK, time to get this gravy train a-rollin'! 
 
 For my EDLD 610 final portfolio, I will be working with primary data from my current research on the impact of brand activism on subsequent consumer action. 
@@ -42,6 +43,7 @@ Nike’s choice of Kaepernick was activist in nature; it signaled Nike’s suppo
 
 We'll begin by importing the data. There are a few continuous variables we'll have to calculate. First, because SBC is derived from a seven-item scale, we'll add each subject's values for these items and average them. We'll do the same for their self-reported attitude toward the focal cause (i.e., Black Lives Matter). 
 
+Very nice overview of your whole project. Appreciated. - Xi
 ```{r import}
 d <- import("./d.csv", setclass = "tibble") %>% 
   clean_names() %>% 
@@ -74,6 +76,8 @@ ggplot(d, aes(x = sbcavg, y = donate_3)) +
         plot.subtitle = element_text(hjust = 0.5),
         legend.title = element_text(size = 16, face = "bold"),
         legend.background = element_rect(size = .5))
+
+# I realize that this plot is later drastically improved. It is also great that you made the dots jittered and transparent. For some reason, the way the dots gathered made me wonder if we had a significant correlation here. Would it be even better that we have r and p value provide information on the effect size? (similar thoughts apply if you use regression). : ) - Xi 
 ```
 
 ## TN: 
@@ -194,6 +198,8 @@ ggplot(d, aes(x = donate_3, fill = polit)) +
   theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5),
         legend.position = "none")
+
+# this is absolutely beautiful! - Xi
 ```
 
 It is interesting to see that there is more of a right skew to the distribution for conservatives and moderates than for liberals. This makes sense, as the cause, Black Lives Matter, aligns more with left-leaning political motives than right-leaning. But there might be more than meets the eye going on with the data here. Let's look at how SBC and activism awareness affected donations to BLM by political orientation.
@@ -203,6 +209,8 @@ To make comparisons as easy as possible, we will also drop moderates from the vi
 ## Did SBC and Awareness Influence Donations for Conservatives and Liberals?
 
 Uh oh, it's time to make the dreaded **dynamite plot**! I'd like to compare donations to Black Lives Matter by political orientation, SBC, and activism awareness, complete with error bars to visualize uncertainty.
+
+Haha, sure - Xi
 
 ```{r pol_int}
 pd <- position_dodge(.9)
@@ -224,6 +232,8 @@ ggplot(pol2, aes(x = sbc_cat, y = mean, fill = know2)) +
         legend.title = element_text(size = 16, face = "bold"),
         legend.background = element_rect(size = .5),
         legend.position = "bottom")
+
+# Elegant. - Xi
 ```
 
 As can be seen, the influence of SBC and awareness on conservatives appears staggering! Their donations to Black Lives Matter are < $0.50 at low SBC, but skyrocket at high SBC. This is especially true for conservatives who were aware of Nike's Kaepernick campaign, although the 95% interval around the mean is large. 
